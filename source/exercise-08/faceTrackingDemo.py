@@ -79,8 +79,8 @@ def faceTracker(input_file):
             visiblePoints = points[isFound==1]
             oldInliers = oldPoints[isFound==1]
 
-            # need at least two points (otherwise tracks are lost)
-            if visiblePoints.shape[0] >= 2:
+            # need at least three points (otherwise ransac raises error and tracks are lost)
+            if visiblePoints.shape[0] > 2:
 
                 # estimate the geometric transformation between the old points and 
                 # the new points and eliminate outliers
