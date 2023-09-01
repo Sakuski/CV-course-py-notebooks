@@ -98,7 +98,7 @@ def faceTracker(input_file):
                 bboxPoints_new = bboxPoints_new.T
                 bboxPoints = bboxPoints_new
 
-                bboxPoints_new = bboxPoints_new.astype(np.int)
+                bboxPoints_new = bboxPoints_new.astype(int)
                 bboxPoints_new = bboxPoints_new.reshape((-1, 1, 2))
 
                 # insert a bounding box around the object being tracked
@@ -108,8 +108,8 @@ def faceTracker(input_file):
                 for i, (new, old) in enumerate(zip(visiblePoints, oldInliers)):
                     a, b = new.ravel()
                     c, d = old.ravel()
-                    mask = cv2.line(mask, (a, b),(c, d), (255,255,255), 2)
-                    frame = cv2.circle(frame, (a, b), 2, (255, 255, 255), -1)
+                    mask = cv2.line(mask, (int(a), int(b)),(int(c), int(d)), (255,255,255), 2)
+                    frame = cv2.circle(frame, (int(a), int(b)), 2, (255, 255, 255), -1)
 
                 # visualize tracks
                 mask = 0.7 * mask
