@@ -47,8 +47,15 @@ def model_to_theta(model):
     return np.vstack((input_to_hid, hid_to_class))
 
 def logistic(input):
-    ret = 1 / (1 + np.exp(-input))
-    return ret
+    def optimized_logistic(z):
+        if z >= 0:
+            return 1 / (1 + np.exp(-z))
+        else:
+            return np.exp(z) / (1 + np.exp(z))
+    
+    vectorized_optimized_logistic = np.vectorize(optimized_logistic)
+    
+    return vectorized_optimized_logistic(input)
 
 def log_sum_exp_over_rows(a):
     # This computes log(sum(exp(a), 1)) in a numerically stable way
