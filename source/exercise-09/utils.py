@@ -26,7 +26,7 @@ def theta_to_model(theta):
     """ This function takes a model (or gradient) in the form of one long vector (maybe produced 
     by model_to_theta), and restores it to the structure format, i.e. with fields 
     .input_to_hid and .hid_to_class, both matrices. """
-    n_hid = np.int(theta.shape[0] / (256+10.))
+    n_hid = int(theta.shape[0] / (256+10.))
     ret=dict()
     ret['input_to_hid'] = np.reshape(np.ravel(theta)[0:256 * n_hid], (n_hid, 256), order='F')
     ret['hid_to_class'] = np.reshape(np.ravel(theta)[256 * n_hid:], (10, n_hid), order='F')
@@ -78,5 +78,5 @@ def classification_performance(model, data):
   
     choices = np.argmax(class_input,0) # choices is integer: the chosen class, plus 1.
     targets = np.argmax(data['target'],0) # targets is integer: the target class, plus 1.
-    ret = np.mean((choices != targets).astype(np.float))
+    ret = np.mean((choices != targets).astype(float))
     return ret
